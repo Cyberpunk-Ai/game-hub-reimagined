@@ -12,6 +12,7 @@ export default function CreatorPage() {
   const { data } = useQuery({
     queryKey: ["creator", id],
     queryFn: async () => {
+      if (!id) return { profile: null, posts: [], followers: 0, totalLikes: 0 };
       const [{ data: profile }, { data: posts }, { data: followers }, { data: likes }] =
         await Promise.all([
           backend.from("profiles").select("*").eq("user_id", id).maybeSingle(),
@@ -45,7 +46,7 @@ export default function CreatorPage() {
       <div className="rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 p-6 mb-6">
         <div className="flex items-center gap-4 mb-4">
           <Avatar className="h-20 w-20 border-2 border-primary">
-            <AvatarImage src={profile.avatar_url} />
+            <AvatarImage src={profile.avatar_url ?? undefined} />
             <AvatarFallback>{profile.username?.[0]?.toUpperCase()}</AvatarFallback>
           </Avatar>
           <div className="flex-1">

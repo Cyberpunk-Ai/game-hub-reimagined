@@ -42,6 +42,7 @@ export default function TournamentDetail() {
   const { data: tournament, isLoading } = useQuery({
     queryKey: ["tournament", id],
     queryFn: async () => {
+      if (!id) return null;
       const { data, error } = await backend
         .from("tournaments")
         .select("*")
@@ -83,6 +84,7 @@ export default function TournamentDetail() {
   const { data: matchesData } = useQuery({
     queryKey: ["matches", id],
     queryFn: async () => {
+      if (!id) return [];
       const { data } = await backend
         .from("matches")
         .select("*")
@@ -126,6 +128,7 @@ export default function TournamentDetail() {
   const { data: registrations } = useQuery({
     queryKey: ["registrations", id],
     queryFn: async () => {
+      if (!id) return [];
       const { data, error } = await backend
         .from("registrations")
         .select("*")
@@ -155,7 +158,7 @@ export default function TournamentDetail() {
   const { data: userRegistration } = useQuery({
     queryKey: ["user-registration", id, user?.id],
     queryFn: async () => {
-      if (!user) return null;
+      if (!user || !id) return null;
       const { data, error } = await backend
         .from("registrations")
         .select("*")
