@@ -21,6 +21,7 @@ export default function PostDetail() {
   const { data: post, isLoading } = useQuery({
     queryKey: ["post", id],
     queryFn: async () => {
+      if (!id) return null;
       const { data } = await backend.from("user_statuses").select("*").eq("id", id).maybeSingle();
       if (!data) return null;
 
@@ -89,6 +90,7 @@ export default function PostDetail() {
   const likeMutation = useMutation({
     mutationFn: async () => {
       if (!user) throw new Error("Sign in to like posts");
+      if (!id) throw new Error("Missing post id");
       if (post?.isLiked) {
         await backend.from("status_likes").delete().eq("status_id", id).eq("user_id", user.id);
         await updateStatusCount(backend, id, "likes_count", -1);
@@ -150,7 +152,7 @@ export default function PostDetail() {
         <div className="p-4 flex items-center gap-3">
           <Link to={`/player/${post.user_id}`}>
             <Avatar className="h-11 w-11">
-              <AvatarImage src={post.profile?.avatar_url} />
+              <AvatarImage src={post.profile?.avatar_url ?? undefined} />
               <AvatarFallback>{post.profile?.username?.[0]?.toUpperCase()}</AvatarFallback>
             </Avatar>
           </Link>
