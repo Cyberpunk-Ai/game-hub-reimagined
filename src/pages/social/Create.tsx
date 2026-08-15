@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useRef } from "react";
 import { useAuth } from "@/lib/auth-context";
 import { useNavigate } from "@/lib/router-compat";

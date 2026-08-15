@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "@/lib/router-compat";
 import { useAuth } from "@/lib/auth-context";

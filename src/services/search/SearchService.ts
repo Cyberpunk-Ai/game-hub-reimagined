@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { backend } from "@/backend";
 
 export type SearchableEntity =

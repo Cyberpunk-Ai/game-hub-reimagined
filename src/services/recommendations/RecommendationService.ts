@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { recommendationEngine } from "./RecommendationEngine";
 
 export type RecommendationFeedType = "home" | "stories" | "flexes" | "friends" | "explore";

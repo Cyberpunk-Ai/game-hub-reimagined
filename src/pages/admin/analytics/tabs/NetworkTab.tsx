@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Wifi, Smartphone, Signal, Globe, Languages, MonitorSmartphone } from "lucide-react";
 import { Kpi, Panel, Empty, HealthRow, RankList } from "../primitives";
 import { ms } from "../format";

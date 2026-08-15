@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState } from "react";
 import { FileDown, FileJson, FileSpreadsheet, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";

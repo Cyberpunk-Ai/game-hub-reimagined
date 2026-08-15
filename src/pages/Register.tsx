@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "@/lib/router-compat";
 import { useForm } from "react-hook-form";

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { DollarSign, Trophy, CreditCard, Users, TrendingUp, Wallet } from "lucide-react";
 import { StatsChart } from "@/components/stats-chart";
 import { Kpi, Panel, Empty, RankList } from "../primitives";

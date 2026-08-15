@@ -1,4 +1,3 @@
-// @ts-nocheck
 const buckets = new Map<string, number[]>();
 
 function pruneOldBuckets(now: number) {

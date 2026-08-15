@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useQuery } from "@tanstack/react-query";
 import { optimizeImageUrl } from "@/utils/media-optimizer";
 import { Link } from "@/lib/router-compat";

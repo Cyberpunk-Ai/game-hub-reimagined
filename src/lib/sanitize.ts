@@ -1,4 +1,3 @@
-// @ts-nocheck
 export function sanitizeText(text: string): string {
   if (!text || typeof text !== "string") return "";
   let sanitized = text;

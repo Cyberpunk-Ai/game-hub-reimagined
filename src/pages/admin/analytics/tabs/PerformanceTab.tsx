@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Gauge, Zap, Cpu, HardDrive, Server, Database, AlertTriangle } from "lucide-react";
 import { StatsChart } from "@/components/stats-chart";
 import { Kpi, Panel, Empty, HealthRow } from "../primitives";

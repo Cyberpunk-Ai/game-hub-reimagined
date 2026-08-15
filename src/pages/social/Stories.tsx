@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useMemo, useEffect } from "react";
 import { optimizeImageUrl } from "@/utils/media-optimizer";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";

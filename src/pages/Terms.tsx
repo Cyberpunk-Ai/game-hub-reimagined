@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { FileText } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 

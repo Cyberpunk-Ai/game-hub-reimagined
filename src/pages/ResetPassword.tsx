@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "@/lib/router-compat";
 import { Lock, Trophy, Eye, EyeOff } from "lucide-react";

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { RefreshCw, BarChart3 } from "lucide-react";

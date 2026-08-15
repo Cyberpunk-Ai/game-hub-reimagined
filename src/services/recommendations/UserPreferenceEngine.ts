@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { RecommendationEvent } from "./RecommendationEventService";
 
 export interface UserVector {

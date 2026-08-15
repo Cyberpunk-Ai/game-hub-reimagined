@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Link, useLocation } from "@/lib/router-compat";
 import { optimizeImageUrl } from "@/utils/media-optimizer";
 import { useState, useEffect } from "react";

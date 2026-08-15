@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState } from "react";
 import { Link } from "@/lib/router-compat";
 import { Mail, Trophy, ArrowLeft } from "lucide-react";

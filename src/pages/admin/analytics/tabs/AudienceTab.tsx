@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Users, UserPlus, Repeat, Target, Gauge } from "lucide-react";
 import { StatsChart } from "@/components/stats-chart";
 import { Kpi, Panel, Empty, RankList, HealthRow } from "../primitives";

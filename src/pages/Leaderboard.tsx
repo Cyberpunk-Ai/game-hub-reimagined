@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useEffect } from "react";
 import { Link } from "@/lib/router-compat";
 import { Trophy, Medal, TrendingUp, Crown, Phone, Zap } from "lucide-react";

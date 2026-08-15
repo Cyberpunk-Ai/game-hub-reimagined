@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { backend } from "@/backend";
 import { useAuth } from "@/lib/auth-context";

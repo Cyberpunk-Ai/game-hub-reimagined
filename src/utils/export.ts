@@ -1,4 +1,3 @@
-// @ts-nocheck
 export function toCSV(data: any[]): string {
   if (!data.length) return "";
   const headers = Object.keys(data[0]);

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { backend } from "@/backend";
 import type { Database } from "@/backend/database";
 

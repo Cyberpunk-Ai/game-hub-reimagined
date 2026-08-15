@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { backend } from "@/backend";
 import { userPreferenceEngine } from "./UserPreferenceEngine";
 import type { RecommendationCandidate, RecommendationFeedType } from "./RecommendationService";

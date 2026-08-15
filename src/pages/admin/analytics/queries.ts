@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useQuery } from "@tanstack/react-query";
 import { backend } from "@/backend";
 import { format, subDays } from "date-fns";

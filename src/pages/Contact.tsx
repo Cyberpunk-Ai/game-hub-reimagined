@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState } from "react";
 import { Mail, Phone, MapPin, MessageCircle, Send, Loader2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";

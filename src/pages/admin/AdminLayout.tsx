@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Link, Outlet, useLocation } from "@/lib/router-compat";
 import {
   LayoutDashboard,

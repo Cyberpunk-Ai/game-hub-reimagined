@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { SocialLayout } from "@/components/social/social-nav";
 import { SettingsManager } from "@/components/settings/SettingsManager";
 

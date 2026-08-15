@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState } from "react";
 import { SocialLayout } from "@/components/social/social-nav";
 import { Link, useParams, useNavigate } from "@/lib/router-compat";

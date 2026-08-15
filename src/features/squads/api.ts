@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * Squad data layer — backed by the database so squads, invites, join requests,
  * chat and planning are shared across every player and device.
