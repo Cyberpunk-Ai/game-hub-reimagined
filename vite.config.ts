@@ -38,7 +38,7 @@ export default defineConfig(({ mode }) => {
         server: { entry: "server" },
       }),
       viteReact(),
-      nitro({ config: { preset: env["NITRO_PRESET"] ?? "cloudflare_module" } }),
+      nitro({ preset: env["NITRO_PRESET"] ?? "cloudflare_module" }),
     ],
   };
 });
