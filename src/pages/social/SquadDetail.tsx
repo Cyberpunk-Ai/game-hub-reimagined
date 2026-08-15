@@ -156,6 +156,7 @@ export default function SquadDetail() {
                   className="gap-1.5"
                   disabled={busy}
                   onClick={async () => {
+                    if (!me) return;
                     setBusy(true);
                     try {
                       await api.removeMember(squad.id, me.userId);

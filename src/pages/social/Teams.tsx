@@ -60,6 +60,7 @@ export default function Teams() {
   };
 
   const cancelRequest = async (squad: any) => {
+    if (!me) return;
     setBusy(squad.id);
     try {
       await api.cancelJoinRequest(squad.id, me.userId);
