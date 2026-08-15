@@ -17,10 +17,13 @@ import viteReact from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig, loadEnv } from "vite";
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, command }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const port = Number(env["PORT"] ?? 8080);
   const host = env["HOST"] ?? "0.0.0.0";
+  // Nitro only participates in the production build; `vite dev` runs the
+  // framework's own SSR dev server.
+  const isBuild = command === "build";
 
   return {
     resolve: {
@@ -38,7 +41,7 @@ export default defineConfig(({ mode }) => {
         server: { entry: "server" },
       }),
       viteReact(),
-      nitro({ preset: env["NITRO_PRESET"] ?? "cloudflare_module" }),
+      ...(isBuild ? nitro({ preset: env["NITRO_PRESET"] ?? "cloudflare_module" }) : []),
     ],
   };
 });
