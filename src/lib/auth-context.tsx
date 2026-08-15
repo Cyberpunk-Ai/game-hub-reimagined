@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import type { User, Session } from "@supabase/supabase-js";
 import { backend } from "@/backend";
-import { lovable } from "@/integrations/lovable";
+import { signInWithOAuthProvider } from "@/lib/oauth";
 import { Tables } from "@/backend/database";
 import { track } from "@/lib/analytics";
 
@@ -303,14 +303,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (typeof window !== "undefined" && redirectPath && redirectPath.startsWith("/")) {
       sessionStorage.setItem("gameflex_post_auth_redirect", redirectPath);
     }
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: `${window.location.origin}/auth/callback`,
+    const result = await signInWithOAuthProvider("google", {
+      redirectTo: `${window.location.origin}/auth/callback`,
     });
-    if (result.error) {
-      return {
-        error: result.error instanceof Error ? result.error : new Error(String(result.error)),
-      };
-    }
+    if (result.error) return { error: result.error };
     if (!result.redirected) void track("login", { method: "google" });
     return { error: null, redirected: !!result.redirected };
   }, []);
