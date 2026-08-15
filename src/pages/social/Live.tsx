@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { cn, formatExternalUrl } from "@/lib/utils";
 import { useAuth } from "@/lib/auth-context";
 
-function extractYouTubeId(url: string): string | null {
+function extractYouTubeId(url: string | null | undefined): string | null {
   if (!url) return null;
 
   const patterns = [
@@ -169,7 +169,7 @@ export default function Live() {
               ) : (featuredLive.live_stream_link ?? featuredLive.group_link) ? (
                 <div className="aspect-video bg-black">
                   <video
-                    src={featuredLive.live_stream_link ?? featuredLive.group_link}
+                    src={featuredLive.live_stream_link ?? featuredLive.group_link ?? undefined}
                     controls
                     className="w-full h-full"
                   />
