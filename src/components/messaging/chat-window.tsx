@@ -629,7 +629,7 @@ export function ChatWindow({ conversationId, otherUser, onBack }: ChatWindowProp
                     sent ? "items-end" : "items-start",
                   )}
                 >
-                  {group.messages.map((msg, idx) => {
+                  {group.messages.map((msg: any, idx: number) => {
                     const isLast = idx === group.messages.length - 1;
                     const isEditing = editingMessageId === msg.id;
                     const decrypted = decryptedMessages.get(msg.id) ?? "";

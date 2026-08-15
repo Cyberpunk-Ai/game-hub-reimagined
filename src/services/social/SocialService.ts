@@ -233,7 +233,7 @@ export class SocialService {
     try {
       const { data, error } = await backend
         .from("user_statuses")
-        .insert({ user_id: userId, content, image_url: imageUrl })
+        .insert({ user_id: userId, content, media_url: imageUrl })
         .select()
         .single();
       if (error) throw error;

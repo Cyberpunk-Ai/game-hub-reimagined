@@ -44,7 +44,7 @@ export class SupabaseSearchProvider implements ISearchProvider {
                 id: p.id,
                 type: "players",
                 title: p.username || "Unknown",
-                imageUrl: p.avatar_url,
+                imageUrl: p.avatar_url ?? undefined,
               }),
             );
           }),
@@ -55,7 +55,7 @@ export class SupabaseSearchProvider implements ISearchProvider {
       promises.push(
         backend
           .from("tournaments")
-          .select("id, title, game_id")
+          .select("id, title, game")
           .ilike("title", `%${query}%`)
           .limit(limit)
           .then(({ data }) => {
@@ -64,7 +64,7 @@ export class SupabaseSearchProvider implements ISearchProvider {
                 id: t.id,
                 type: "tournaments",
                 title: t.title,
-                subtitle: t.game_id,
+                subtitle: t.game,
               }),
             );
           }),

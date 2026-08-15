@@ -17,7 +17,7 @@ export class PaymentService {
         .from("payments")
         .insert({
           user_id: params.userId,
-          tournament_id: params.tournamentId,
+          tournament_id: params.tournamentId ?? "",
           amount: params.amount,
           method: params.method,
           transaction_code: params.transactionCode,
@@ -37,7 +37,7 @@ export class PaymentService {
     try {
       const { error } = await backend
         .from("payments")
-        .update({ status: "completed" })
+        .update({ status: "verified" })
         .eq("id", paymentId);
 
       if (error) throw error;
@@ -55,7 +55,7 @@ export class PaymentService {
     try {
       const { error } = await backend
         .from("payments")
-        .update({ status: "failed" }) // Assuming 'failed' or 'rejected'
+        .update({ status: "rejected" })
         .eq("id", paymentId);
 
       if (error) throw error;

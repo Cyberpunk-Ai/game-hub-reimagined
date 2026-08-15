@@ -29,12 +29,18 @@ export function NewConversationModal({
     queryKey: ["suggested-players", user?.id],
     queryFn: async () => {
       if (!user) return [];
-      const { data } = await backend
+      const { data: follows } = await backend
         .from("user_follows")
-        .select("profiles!user_follows_following_id_fkey(user_id, username, avatar_url)")
+        .select("following_id")
         .eq("follower_id", user.id)
         .limit(5);
-      return data?.map((row) => row.profiles).filter(Boolean) ?? [];
+      const followingIds = (follows ?? []).map((f) => f.following_id);
+      if (followingIds.length === 0) return [];
+      const { data } = await backend
+        .from("profiles")
+        .select("user_id, username, avatar_url")
+        .in("user_id", followingIds);
+      return data ?? [];
     },
     enabled: !!user && open,
   });
@@ -138,7 +144,7 @@ export function NewConversationModal({
                       >
                         <div className="relative">
                           <Avatar className="h-14 w-14 ring-2 ring-border group-hover:ring-primary transition-all">
-                            <AvatarImage src={profile.avatar_url} />
+                            <AvatarImage src={profile.avatar_url ?? undefined} />
                             <AvatarFallback className="text-base font-semibold">
                               {profile.username?.charAt(0).toUpperCase()}
                             </AvatarFallback>

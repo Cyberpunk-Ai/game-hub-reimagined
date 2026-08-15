@@ -2,10 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { backend } from "@/backend";
 import { format, subDays } from "date-fns";
 
-const sum = (rows?: any[], key = "amount") =>
+const sum = (rows?: any[] | null, key = "amount") =>
   rows?.reduce((s, r) => s + Number(r[key] ?? 0), 0) ?? 0;
 
-const uniq = (rows?: any[], key = "user_id") =>
+const uniq = (rows?: any[] | null, key = "user_id") =>
   new Set((rows ?? []).map((r) => r[key]).filter(Boolean)).size;
 
 const pct = (curr: number, prev: number) =>
@@ -314,7 +314,7 @@ export function useDataHealth() {
         tables.map(async (table) => {
           const t0 = performance.now();
           const { count, error } = await backend
-            .from(table)
+            .from(table as "profiles" | "tournaments" | "registrations" | "payments" | "matches" | "notifications")
             .select("*", { count: "exact", head: true });
           return {
             table,

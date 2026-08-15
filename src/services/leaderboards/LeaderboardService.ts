@@ -8,11 +8,10 @@ export interface LeaderboardEntry {
   user_id: string;
   username: string;
   avatar_url?: string;
-  rating: number;
-  matches_played: number;
-  matches_won: number;
+  points: number;
+  wins: number;
+  losses: number;
   rank: number;
-  game_id?: string;
 }
 
 export class LeaderboardService {
@@ -21,7 +20,7 @@ export class LeaderboardService {
       const { data, error } = await backend
         .from("leaderboard_stats")
         .select("*, profiles!inner(username, avatar_url)")
-        .order("rating", { ascending: false })
+        .order("points", { ascending: false })
         .range(offset, offset + limit - 1);
 
       if (error) throw error;
@@ -30,11 +29,10 @@ export class LeaderboardService {
         user_id: row.user_id,
         username: row.profiles?.username || "Unknown",
         avatar_url: row.profiles?.avatar_url,
-        rating: row.rating,
-        matches_played: row.matches_played,
-        matches_won: row.matches_won,
+        points: row.points ?? 0,
+        wins: row.wins ?? 0,
+        losses: row.losses ?? 0,
         rank: offset + i + 1,
-        game_id: row.game_id,
       }));
     } catch (err) {
       console.error(err);
@@ -42,13 +40,13 @@ export class LeaderboardService {
     }
   }
 
+  /** Note: leaderboard_stats has no per-game column; this returns the global leaderboard. */
   async getByGame(game: string, limit: number = 100): Promise<LeaderboardEntry[]> {
     try {
       const { data, error } = await backend
         .from("leaderboard_stats")
         .select("*, profiles!inner(username, avatar_url)")
-        .eq("game_id", game)
-        .order("rating", { ascending: false })
+        .order("points", { ascending: false })
         .limit(limit);
 
       if (error) throw error;
@@ -57,11 +55,10 @@ export class LeaderboardService {
         user_id: row.user_id,
         username: row.profiles?.username || "Unknown",
         avatar_url: row.profiles?.avatar_url,
-        rating: row.rating,
-        matches_played: row.matches_played,
-        matches_won: row.matches_won,
+        points: row.points ?? 0,
+        wins: row.wins ?? 0,
+        losses: row.losses ?? 0,
         rank: i + 1,
-        game_id: row.game_id,
       }));
     } catch (err) {
       console.error(err);
@@ -84,7 +81,7 @@ export class LeaderboardService {
       const { count } = await backend
         .from("leaderboard_stats")
         .select("*", { count: "exact", head: true })
-        .gt("rating", stats.rating);
+        .gt("points", stats.points ?? 0);
 
       return {
         rank: (count || 0) + 1,

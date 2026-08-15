@@ -5,7 +5,7 @@ export function useAnalytics() {
     mutationFn: async (event: any) => {
       // @ts-ignore
       const { analyticsService } = await import("@/services/analytics/AnalyticsService");
-      return analyticsService.trackEvent(event);
+      return analyticsService.track(event);
     },
   });
 

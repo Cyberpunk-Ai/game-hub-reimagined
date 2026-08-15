@@ -31,8 +31,13 @@ export class TournamentService {
     try {
       let query = backend.from("tournaments").select("*").order("created_at", { ascending: false });
 
-      if (filters?.status) query = query.eq("status", filters.status);
-      if (filters?.game) query = query.eq("game_id", filters.game);
+      if (filters?.status)
+        query = query.eq(
+          "status",
+          filters.status as Database["public"]["Enums"]["tournament_status"],
+        );
+      if (filters?.game)
+        query = query.eq("game", filters.game as Database["public"]["Enums"]["game_type"]);
       if (filters?.search) query = query.ilike("title", `%${filters.search}%`);
 
       // Always bound the result set — an unbounded select grows with the table.
