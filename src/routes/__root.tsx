@@ -14,7 +14,7 @@ const API_ORIGIN = import.meta.env.VITE_SUPABASE_URL
   ? new URL(import.meta.env.VITE_SUPABASE_URL).origin
   : undefined;
 
-import { reportLovableError } from "@/lib/lovable-error-reporting";
+import { reportError } from "@/lib/error-reporting";
 import { AuthProvider } from "@/lib/auth-context";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
@@ -47,7 +47,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    reportError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
   return (
