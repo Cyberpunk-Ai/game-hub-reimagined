@@ -146,29 +146,40 @@ export function useMemberStats(userIds: string[]) {
     enabled: userIds.length > 0,
     staleTime: 60 * 1000,
     queryFn: async (): Promise<Record<string, MemberStats>> => {
-      const { data } = await backend
-        .from("leaderboard_stats")
-        .select("user_id, points, wins, losses")
-        .in("user_id", userIds);
+      const [{ data }, { data: allPoints }] = await Promise.all([
+        backend.from("leaderboard_stats").select("user_id, points, wins, losses").in("user_id", userIds),
+        backend
+          .from("leaderboard_stats")
+          .select("points")
+          .order("points", { ascending: false }),
+      ]);
+
+      // Ranks are derived from a single global points list instead of one
+      // count(*) query per member, collapsing an N+1 into 2 total queries.
+      const sortedPoints = (allPoints ?? []).map((p: any) => p.points ?? 0);
+      const rankForPoints = (points: number): number => {
+        let lo = 0;
+        let hi = sortedPoints.length;
+        while (lo < hi) {
+          const mid = (lo + hi) >>> 1;
+          if (sortedPoints[mid] > points) lo = mid + 1;
+          else hi = mid;
+        }
+        return lo + 1;
+      };
 
       const out: Record<string, MemberStats> = {};
-      await Promise.all(
-        (data ?? []).map(async (row: any) => {
-          const { count } = await backend
-            .from("leaderboard_stats")
-            .select("*", { count: "exact", head: true })
-            .gt("points", row.points ?? 0);
-          const wins = row.wins ?? 0;
-          const losses = row.losses ?? 0;
-          out[row.user_id] = {
-            userId: row.user_id,
-            rating: row.points ?? 0,
-            matchesPlayed: wins + losses,
-            matchesWon: wins,
-            rank: (count ?? 0) + 1,
-          };
-        }),
-      );
+      (data ?? []).forEach((row: any) => {
+        const wins = row.wins ?? 0;
+        const losses = row.losses ?? 0;
+        out[row.user_id] = {
+          userId: row.user_id,
+          rating: row.points ?? 0,
+          matchesPlayed: wins + losses,
+          matchesWon: wins,
+          rank: rankForPoints(row.points ?? 0),
+        };
+      });
       return out;
     },
   });
