@@ -50,6 +50,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { recommendationService } from "@/services/recommendations/RecommendationService";
 import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -632,7 +633,7 @@ export default function Stories() {
         if (!data.length) {
           throw new Error("no-recommendations");
         }
-        const ids = [...new Set(data.map((s: any) => s.user_id))];
+        const ids = [...new Set(data.map((s: any) => s.user_id))] as string[];
         const { data: profiles } = await backend
           .from("profiles")
           .select("user_id, username, avatar_url")
@@ -671,7 +672,7 @@ export default function Stories() {
 
         if (!data?.length) return [];
 
-        const ids = [...new Set(data.map((s: any) => s.user_id))];
+        const ids = [...new Set(data.map((s: any) => s.user_id))] as string[];
         const { data: profiles } = await backend
           .from("profiles")
           .select("user_id, username, avatar_url")
