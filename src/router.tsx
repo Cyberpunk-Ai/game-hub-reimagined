@@ -25,6 +25,12 @@ export function getRouter() {
       queryClient,
     },
     defaultPreload: "intent",
+    // TanStack Query owns cache freshness; keep the router's own preload
+    // cache from short-circuiting query refetches.
+    defaultPreloadStaleTime: 0,
+    // Small hover delay so quick pointer sweeps across a nav bar don't fire
+    // a burst of chunk downloads.
+    defaultPreloadDelay: 80,
   });
   return router;
 }
