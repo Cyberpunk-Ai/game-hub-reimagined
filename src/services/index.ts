@@ -9,9 +9,21 @@ export { TournamentService, tournamentService } from "./tournaments";
 export type { LeaderboardStats } from "./leaderboards";
 export { LeaderboardService, leaderboardService } from "./leaderboards";
 export * from "./search";
+export type { Profile } from "./social";
 export * from "./social";
 export * from "./realtime";
 export * from "./marketplace";
 export * from "./messages";
 export * from "./achievements";
-export * from "./admin";
+export type {
+  UserRole,
+  AppRole,
+  SupportTicket,
+  TicketMessage,
+  Reward,
+  Registration,
+  Referral,
+  Match,
+  GameRoom,
+} from "./admin";
+export { AdminService, adminService } from "./admin";
