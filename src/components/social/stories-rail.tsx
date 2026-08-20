@@ -70,6 +70,8 @@ export function StoryViewer({
 }: {
   userGroups: { user_id: string; profile: any; stories: any[] }[];
   initialGroupIndex?: number;
+  initialStoryIndex?: number;
+  openComments?: boolean;
   onClose: () => void;
 }) {
   const { user } = useAuth();
